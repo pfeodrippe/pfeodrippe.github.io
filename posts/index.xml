@@ -18,8 +18,18 @@
       
       <guid>https://pfeodrippe.github.io/posts/duro/</guid>
       <description>I&amp;#8217;m sd good behold
-Caution: Helps me to live, because I can&amp;#8217;t stand
- </description>
+Tip: Helps me to live, because I can&amp;#8217;t stand
+ 
+bold constrained &amp;amp; unconstrained
+italic constrained &amp;amp; unconstrained
+bold italic constrained &amp;amp; unconstrained
+monospace constrained &amp;amp; unconstrained
+monospace bold constrained &amp;amp; unconstrained
+monospace italic constrained &amp;amp; unconstrained
+monospace bold italic constrained &amp;amp; unconstrained
+Type the word asciidoc into the search bar.
+*Stars* will appear as Stars, not as bold text.
+&amp;amp;sect; will appear as an entity, not the &amp;sect; symbol.</description>
     </item>
     
   </channel>

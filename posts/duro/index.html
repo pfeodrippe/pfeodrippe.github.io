@@ -12,13 +12,33 @@
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Placeholder"/>
 <meta name="twitter:description" content="I&#8217;m sd good behold
-Caution: Helps me to live, because I can&#8217;t stand
- "/>
+Tip: Helps me to live, because I can&#8217;t stand
+ 
+bold constrained &amp; unconstrained
+italic constrained &amp; unconstrained
+bold italic constrained &amp; unconstrained
+monospace constrained &amp; unconstrained
+monospace bold constrained &amp; unconstrained
+monospace italic constrained &amp; unconstrained
+monospace bold italic constrained &amp; unconstrained
+Type the word asciidoc into the search bar.
+*Stars* will appear as Stars, not as bold text.
+&amp;sect; will appear as an entity, not the &sect; symbol."/>
 
     <meta property="og:title" content="Placeholder" />
 <meta property="og:description" content="I&#8217;m sd good behold
-Caution: Helps me to live, because I can&#8217;t stand
- " />
+Tip: Helps me to live, because I can&#8217;t stand
+ 
+bold constrained &amp; unconstrained
+italic constrained &amp; unconstrained
+bold italic constrained &amp; unconstrained
+monospace constrained &amp; unconstrained
+monospace bold constrained &amp; unconstrained
+monospace italic constrained &amp; unconstrained
+monospace bold italic constrained &amp; unconstrained
+Type the word asciidoc into the search bar.
+*Stars* will appear as Stars, not as bold text.
+&amp;sect; will appear as an entity, not the &sect; symbol." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pfeodrippe.github.io/posts/duro/" />
 <meta property="article:published_time" content="2019-12-09T21:32:46-03:00" />
@@ -111,7 +131,7 @@ Caution: Helps me to live, because I can&#8217;t stand
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              One minute read
+              2 minutes read
             </span>
           </div>
           
@@ -121,7 +141,52 @@ Caution: Helps me to live, because I can&#8217;t stand
 
       <div>
         <p>I&#8217;m sd <strong>good</strong> behold</p>
-<section class="admonition-block caution" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Caution: </span></h6><p>Helps  me  to live, because I can&#8217;t stand</p></section>
+<aside class="admonition-block tip" role="doc-tip"><h6 class="block-title label-only"><span class="title-label">Tip: </span></h6><p>Helps  me  to live, because I can&#8217;t stand</p></aside>
+<p><br>
+<br></p>
+<p>bold <strong>constrained</strong> &amp; <strong>un</strong>constrained</p>
+<p>italic <em>constrained</em> &amp; <em>un</em>constrained</p>
+<p>bold italic <strong><em>constrained</em></strong> &amp; <strong><em>un</em></strong>constrained</p>
+<p>monospace <code>constrained</code> &amp; <code>un</code>constrained</p>
+<p>monospace bold <code><strong>constrained</strong></code> &amp; <code><strong>un</strong></code>constrained</p>
+<p>monospace italic <code><em>constrained</em></code> &amp; <code><em>un</em></code>constrained</p>
+<p>monospace bold italic <code><strong><em>constrained</em></strong></code> &amp; <code><strong><em>un</em></strong></code>constrained</p>
+<p>Type the word <span class="userinput">asciidoc</span> into the search bar.</p>
+<p>*Stars* will appear as <strong>Stars</strong>, not as bold text.</p>
+<p>&amp;sect; will appear as an entity, not the &sect; symbol.</p>
+<p>__func__ will appear as <em>func</em>, not as emphasized text.</p>
+<p>{two-semicolons} will appear ;;, not resolved as ;;.</p>
+<p>The text <u>underline me</u> is underlined.</p>
+<div class="listing-block"><pre>I better not contain *bold* or _italic_ text.
+But I should contain <strong>bold</strong> text.</pre></div>
+<p>The text <u>underline <strong>me</strong></u> is underlined and the word &#x201c;me&#x201d; is bold.</p>
+<p>The text <u>underline me</u> is underlined.</p>
+<p>This *literal* will appear as <strong>literal</strong>.</p>
+<p>a &#8594; b</p>
+<div class="ulist"><ul><li>Edgar Allen Poe</li><li>Sheri S. Tepper</li><li>Bill Bryson</li></ul></div>
+<section class="ulist"><h6 class="block-title">Kizmet's Favorite Authors</h6>
+<ul><li>Edgar Allen Poe</li><li>Sheri S. Tepper</li><li>Bill Bryson</li><li>Apples</li><li>Oranges</li></ul></section>
+<div class="ulist"><ul><li>Walnuts</li><li>Almonds</li></ul></div>
+<section class="ulist"><h6 class="block-title">Possible DefOps manual locations</h6>
+<ul><li>West wood maze<ul><li>Maze heart<ul><li>Reflection pool</li></ul></li><li>Secret exit</li></ul></li><li>Untracked file in git repository</li></ul></section>
+<section class="olist arabic"><h6 class="block-title">Other</h6>
+<ol class="arabic"><li>Protons</li><li>Electrons</li><li>Neutrons</li><li>Step 1</li><li>Step 2<ol class="loweralpha" type="a"><li>Step 2a</li><li>Step 2b</li></ol></li><li>Step 3</li></ol></section>
+<section class="dlist"><h6 class="block-title">Jesus</h6>
+<dl><dt>CPU</dt><dd>The brain of the computer.</dd><dt>Hard drive</dt><dd>Permanent storage for operating system and/or user files.</dd><dt>RAM</dt><dd>Temporarily stores information the CPU uses during operation.</dd><dt>Keyboard</dt><dd>Used to enter text or control items on the screen.</dd><dt>Mouse</dt><dd>Used to point to and select items on your computer screen.</dd><dt>Monitor</dt><dd>Displays information in visual form using text and graphics.</dd></dl></section>
+<section class="hdlist"><h6 class="block-title">Omg</h6>
+<table><tr><th class="hdlist1">CPU</th><td class="hdlist2"><p>The brain of the computer.</p></td></tr><tr><th class="hdlist1">Hard drive</th><td class="hdlist2"><p>Permanent storage for operating system and/or user files.</p></td></tr><tr><th class="hdlist1">RAM</th><td class="hdlist2"><p>Temporarily stores information the CPU uses during operation.</p></td></tr></table></section>
+<section class="dlist"><h6 class="block-title">O</h6>
+<dl><dt>Dairy</dt><dd><ul><li>Milk</li><li>Eggs</li></ul></dd><dt>Bakery</dt><dd><ul><li>Bread</li></ul></dd><dt>Produce</dt><dd><ul><li>Bananas</li></ul></dd></dl></section>
+<section class="dlist"><h6 class="block-title">S</h6>
+<dl><dt>Operating Systems</dt><dd><dl><dt>Linux</dt><dd><ol class="arabic"><li>Fedora<ul><li>Desktop</li></ul></li><li>Ubuntu<ul><li>Desktop</li><li>Server</li></ul></li></ol></dd><dt>BSD</dt><dd><ol class="arabic"><li>FreeBSD</li><li>NetBSD</li></ol></dd></dl></dd><dt>Cloud Providers</dt><dd><dl><dt>PaaS</dt><dd><ol class="arabic"><li>OpenShift</li><li>CloudBees</li></ol></dd><dt>IaaS</dt><dd><ol class="arabic"><li>Amazon EC2</li><li>Rackspace</li></ol></dd></dl></dd></dl></section>
+<section class="ulist"><h6 class="block-title">h</h6>
+<ul><li><p>The header in AsciiDoc must start with a document title.</p><p>The header is optional.</p></li><li>Not quite right</li></ul></section>
+<section class="ulist"><h6 class="block-title">h</h6>
+<ul><li><p>The header in AsciiDoc must start with a document title.</p><div class="listing-block"><pre>= Document Title</pre></div>
+<p>Keep in mind that the header is optional.</p></li><li><p>Optional Author and Revision information immediately follows the header title.</p><div class="listing-block"><pre>= Document Title
+Doc Writer &lt;doc.writer@asciidoc.org&gt;
+v1.0, 2013-01-01</pre></div></li></ul></section>
+<p>The homepage for the Asciidoctor Project is <a class="bare" href="https://asciidoctor.org">https://asciidoctor.org</a>.</p>
 
       </div>
 
