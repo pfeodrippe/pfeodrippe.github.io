@@ -6,13 +6,22 @@
     <description>Recent content in Posts on pfeodrippe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Dec 2019 21:32:46 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 09 Dec 2019 22:12:26 -0300</lastBuildDate>
     
 	<atom:link href="https://pfeodrippe.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Clojure Testing for Hardware</title>
+      <link>https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/</link>
+      <pubDate>Mon, 09 Dec 2019 22:12:26 -0300</pubDate>
+      
+      <guid>https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Placeholder</title>
       <link>https://pfeodrippe.github.io/posts/duro/</link>
       <pubDate>Mon, 09 Dec 2019 21:32:46 -0300</pubDate>
       
