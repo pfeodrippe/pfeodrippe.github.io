@@ -50,20 +50,31 @@ span.icon>.fa {
   color: #bf0000;
 }
 
-.sidebar {
-    /*position: absolute;*/
-    float: right;
-    width: 28.88889%;
+.container {
+    margin: 0 auto;
+    max-width: 900.0rem;
+    width: 100%;
+    padding: 0 5.88235%;
 }
 
-p {
+.doc-section {
+    font: 400 18px/1.75 tiempos-text,serif;
+}
+
+.doc-section:not(.sidebar)>* {
     width: 64.44445%;
 }
 
-.container {
-    margin: 0 auto;
+.doc-section .sidebar {
+    width: 28.88889%;
+    float: right;
+    margin: -70px 0 0;
+    color: #767676;
+    font-family: baton-turbo,sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+}
 
-    width: 100%;
-    padding-left: 2.0rem;
-    padding-right: 2.0rem;
+pre {
+    padding: 0.0rem;
 }

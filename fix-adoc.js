@@ -1,20 +1,21 @@
 // replace the default admonitions block with one that looks like the antora output to apply similar styling via adoc.css
 window.addEventListener('load', function () {
-  function getAdmonitionType (elm) {
-    return elm.classList[1]
-  }
-  function getAdmonitionText (elm) {
-    return elm.getElementsByTagName('p')[0].innerHTML
-  }
+    function getAdmonitionType (elm) {
+        return elm.classList[1]
+    }
 
-  const admonitions = document.getElementsByClassName('admonition-block')
-  for (let i = admonitions.length - 1; i >= 0; i--) {
-    const elm = admonitions[i]
-    const type = getAdmonitionType(elm)
-    const text = getAdmonitionText(elm)
-    const parent = elm.parentNode
-    const tempDiv = document.createElement('div')
-    tempDiv.innerHTML = `<div class="admonitionblock ${type}">
+    function getAdmonitionText (elm) {
+        return elm.getElementsByTagName('p')[0].innerHTML
+    }
+
+    const admonitions = document.getElementsByClassName('admonition-block')
+    for (let i = admonitions.length - 1; i >= 0; i--) {
+        const elm = admonitions[i]
+        const type = getAdmonitionType(elm)
+        const text = getAdmonitionText(elm)
+        const parent = elm.parentNode
+        const tempDiv = document.createElement('div')
+        tempDiv.innerHTML = `<div class="admonitionblock ${type}">
     <table>
       <tbody>
         <tr>
@@ -31,7 +32,9 @@ window.addEventListener('load', function () {
     </table>
   </div>`
 
-    const input = tempDiv.childNodes[0]
-    parent.replaceChild(input, elm)
-  }
+        const input = tempDiv.childNodes[0]
+        parent.replaceChild(input, elm)
+    }
+
+    const doc_sections = document.getElementsByClassName('doc-sections');
 })
