@@ -71,6 +71,15 @@ span.icon>.fa {
     width: 64.44445%;
 }
 
+.doc-section.flipped>* {
+    margin-left: auto
+}
+
+.doc-section.flipped h2 {
+    width: auto;
+    margin-left: 35.55555%;
+}
+
 .doc-section .sidebar {
     width: 28.88889%;
     float: right;
@@ -79,6 +88,10 @@ span.icon>.fa {
     font-family: baton-turbo,sans-serif;
     font-size: 15px;
     line-height: 1.65;
+}
+
+.doc-section.flipped .sidebar {
+    float:left
 }
 
 pre {
