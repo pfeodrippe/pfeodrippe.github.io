@@ -57,6 +57,12 @@ span.icon>.fa {
     padding: 0 5.88235%;
 }
 
+@font-face {
+    font-family: tiempos-text;
+    font-weight: 400;
+    src: url(/fonts/tiempos-text.woff2) format("woff2"),url(/fonts/tiempos-text.woff) format("woff")
+}
+
 .doc-section {
     font: 400 18px/1.75 tiempos-text,serif;
 }
