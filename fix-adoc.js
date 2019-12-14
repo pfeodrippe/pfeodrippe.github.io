@@ -8,8 +8,39 @@ window.addEventListener('load', function () {
         return elm.getElementsByTagName('p')[0].innerHTML
     }
 
+    const admonitions = document.getElementsByClassName('admonition-block')
+    for (let i = admonitions.length - 1; i >= 0; i--) {
+        const elm = admonitions[i]
+        const type = getAdmonitionType(elm)
+        const text = getAdmonitionText(elm)
+        const parent = elm.parentNode
+        const tempDiv = document.createElement('div')
+        tempDiv.innerHTML = `<div class="admonitionblock ${type}">
+    <table>
+      <tbody>
+        <tr>
+          <td class="icon">
+            <i class="fa icon-${type}" title="${type}"></i>
+          </td>
+          <td class="content">
+            <div>
+            ${text}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>`
 
+        const input = tempDiv.childNodes[0]
+        parent.replaceChild(input, elm)
+    }
 
-    const doc_sections = document.getElementsByClassName('doc-sections');
-    console.log(doc_sections);
+    const doc_sections = document.getElementsByClassName('doc-section');
+    for (let i = doc_sections.length - 1; i >= 0; i--) {
+        const elm = doc_sections[i]
+        if((i % 2) == 1) {
+            elm.classList.add("flipped");
+        }
+    }
 })
