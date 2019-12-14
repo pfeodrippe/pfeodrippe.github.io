@@ -22,7 +22,9 @@ window.addEventListener('load', function () {
             <i class="fa icon-${type}" title="${type}"></i>
           </td>
           <td class="content">
+            <div>
             ${text}
+            </div>
           </td>
         </tr>
       </tbody>
