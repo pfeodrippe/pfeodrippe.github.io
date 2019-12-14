@@ -51,9 +51,19 @@ span.icon>.fa {
 }
 
 .sidebar {
-    margin-right: -170px;
-    position: absolute;
-    right: 0;
-    top: auto; /* default */
-    width: 150px;
+    /*position: absolute;*/
+    float: right;
+    width: 28.88889%;
+}
+
+p {
+    width: 64.44445%;
+}
+
+.container {
+    margin: 0 auto;
+
+    width: 100%;
+    padding-left: 2.0rem;
+    padding-right: 2.0rem;
 }
