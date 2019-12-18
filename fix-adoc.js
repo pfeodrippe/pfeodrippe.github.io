@@ -40,7 +40,7 @@ window.addEventListener('load', function () {
     for (let i = doc_sections.length - 1; i >= 0; i--) {
         const elm = doc_sections[i]
         if((i % 2) == 1) {
-            elm.classList.add("flipped");
+            elm.classList.add("");
         }
     }
 })
