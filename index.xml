@@ -6,10 +6,21 @@
     <description>Recent content on pfeodrippe</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 09 Dec 2019 21:32:46 -0300</lastBuildDate>
+    <lastBuildDate>Mon, 09 Dec 2019 22:12:26 -0300</lastBuildDate>
     
 	<atom:link href="https://pfeodrippe.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Testando Hardware com Clojure</title>
+      <link>https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/</link>
+      <pubDate>Mon, 09 Dec 2019 22:12:26 -0300</pubDate>
+      
+      <guid>https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/</guid>
+      <description>---------Aqui vamos falar bem mais sobre Clojure, conhecimento prévio sobre hardware/sistemas digitais não é necessário para um bom acompanhamento o/.
+ Hardware DigitalHá vários tipos de hardware, mecânicos, têrmicos, eólicos etc. Nosso foco é o mundo digital e vamos superficialmente falar sobre algumas etapas da síntese de hardware digital para que possamos entender um pouco da motivação do projeto aqui mostrado.
+Warning: Não tenho experiência profissional escrevendo código para hardware, apenas tenho interesse pelo assunto, se quiser aprender algo sobre essa área, recomendo https://zipcpu.</description>
+    </item>
     
     <item>
       <title>Placeholder</title>

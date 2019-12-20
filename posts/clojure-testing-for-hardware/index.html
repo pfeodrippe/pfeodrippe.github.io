@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Rafael Feodrippe">
+    <meta name="description" content="My not so private website">
+    <meta name="keywords" content="blog,developer,personal">
+
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Testando Hardware com Clojure"/>
+<meta name="twitter:description" content="---------Aqui vamos falar bem mais sobre Clojure, conhecimento prévio sobre hardware/sistemas digitais não é necessário para um bom acompanhamento o/.
+ Hardware DigitalHá vários tipos de hardware, mecânicos, têrmicos, eólicos etc. Nosso foco é o mundo digital e vamos superficialmente falar sobre algumas etapas da síntese de hardware digital para que possamos entender um pouco da motivação do projeto aqui mostrado.
+Warning: Não tenho experiência profissional escrevendo código para hardware, apenas tenho interesse pelo assunto, se quiser aprender algo sobre essa área, recomendo https://zipcpu."/>
+
+    <meta property="og:title" content="Testando Hardware com Clojure" />
+<meta property="og:description" content="---------Aqui vamos falar bem mais sobre Clojure, conhecimento prévio sobre hardware/sistemas digitais não é necessário para um bom acompanhamento o/.
+ Hardware DigitalHá vários tipos de hardware, mecânicos, têrmicos, eólicos etc. Nosso foco é o mundo digital e vamos superficialmente falar sobre algumas etapas da síntese de hardware digital para que possamos entender um pouco da motivação do projeto aqui mostrado.
+Warning: Não tenho experiência profissional escrevendo código para hardware, apenas tenho interesse pelo assunto, se quiser aprender algo sobre essa área, recomendo https://zipcpu." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/" />
+<meta property="article:published_time" content="2019-12-09T22:12:26-03:00" />
+<meta property="article:modified_time" content="2019-12-09T22:12:26-03:00" />
+
+
+    
+      <base href="https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/">
+    
+    <title>
+  Testando Hardware com Clojure · pfeodrippe
+</title>
+
+    
+      <link rel="canonical" href="https://pfeodrippe.github.io/posts/clojure-testing-for-hardware/">
+    
+
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css" integrity="sha256-l85OmPOjvil/SOvVt3HnSSjzF1TUMyT9eV0c2BzEGzU=" crossorigin="anonymous" />
+
+    <link rel="preload" href="../../fonts/tiempos-text.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+
+    
+      
+      
+      <link rel="stylesheet" href="https://pfeodrippe.github.io/css/coder.min.28d751104f30c16da1aa1bb04015cbe662cacfe0d1b01af4f2240ad58580069c.css" integrity="sha256-KNdREE8wwW2hqhuwQBXL5mLKz&#43;DRsBr08iQK1YWABpw=" crossorigin="anonymous" media="screen" />
+    
+
+    
+
+    
+
+    
+      <link rel="stylesheet" href="https://pfeodrippe.github.io/adoc.css" />
+    
+
+    
+      <script src="https://pfeodrippe.github.io/fix-adoc.js"></script>
+    
+
+    <link rel="icon" type="image/png" href="https://pfeodrippe.github.io/img/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="https://pfeodrippe.github.io/img/favicon-16x16.png" sizes="16x16">
+
+    <meta name="generator" content="Hugo 0.60.1" />
+  </head>
+
+  
+  
+  <body class="colorscheme-light">
+    <main class="wrapper">
+      <nav class="navigation">
+  <section class="container">
+    <a class="navigation-title" href="https://pfeodrippe.github.io/">
+      pfeodrippe
+    </a>
+    <input type="checkbox" id="menu-toggle" />
+    <label class="menu-button float-right" for="menu-toggle"><i class="fas fa-bars"></i></label>
+    <ul class="navigation-list">
+      
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://pfeodrippe.github.io/posts/">Blog</a>
+          </li>
+        
+          <li class="navigation-item">
+            <a class="navigation-link" href="https://pfeodrippe.github.io/about/">About</a>
+          </li>
+        
+      
+      
+    </ul>
+  </section>
+</nav>
+
+
+      <div class="content">
+        
+  <section class="container post">
+    <article>
+      <header>
+        <div class="post-title">
+          <h1 class="title">Testando Hardware com Clojure</h1>
+        </div>
+        <div class="post-meta">
+          <div class="date">
+            <span class="posted-on">
+              <i class="fas fa-calendar"></i>
+              <time datetime='2019-12-09T22:12:26-03:00'>
+                December 9, 2019
+              </time>
+            </span>
+            <span class="reading-time">
+              <i class="fas fa-clock"></i>
+              8 minutes read
+            </span>
+          </div>
+          
+          
+        </div>
+      </header>
+
+      <div>
+        <section class="doc-section level-1"><h2 id="">---------</h2><p>Aqui vamos falar bem mais sobre Clojure,
+conhecimento prévio sobre <code>hardware/sistemas digitais</code>
+não é necessário para um bom acompanhamento o/.</p></section>
+<section class="doc-section level-1"><h2 id="_hardware_digital">Hardware Digital</h2><p>Há vários tipos de hardware, mecânicos, têrmicos,
+eólicos etc. Nosso foco é o mundo digital e vamos superficialmente
+falar sobre algumas etapas da
+<a href="https://www.amazon.com.br/Circuitos-digitais-An%C3%A1lise-S%C3%ADntese-Aplica%C3%A7%C3%B5es-ebook/dp/B075WR5YTJ">síntese de hardware digital</a>
+para que possamos entender um pouco da motivação do projeto aqui
+mostrado.</p>
+<section class="admonition-block warning" role="doc-notice"><h6 class="block-title label-only"><span class="title-label">Warning: </span></h6><p>Não tenho experiência profissional escrevendo código para
+hardware, apenas tenho interesse pelo assunto, se quiser aprender algo
+sobre essa área, recomendo <a class="bare" href="https://zipcpu.com">https://zipcpu.com</a> (é em inglês,
+infelizmente), lá há vários tutoriais e artigos sobre o assunto.</p></section>
+<p>Em circuitos digitais, há representações específicas para alguns
+<strong>blocos digitais</strong> (pense em Lego) de onde todo o resto pode ser
+derivado, por exemplo, a representação de uma <strong>porta</strong> <code>not</code> é</p>
+<aside class="sidebar"><p>Na prática do mundo físico, esses blocos são formados
+por vários de um dos elementos fundamentais da eletrônica, o
+<strong>transistor</strong>, mas, por favor, não vamos entrar nessa toca do coelho.</p></aside>
+<figure class="image-block" id="img-porta-not"><img src="http://www.circuitstoday.com/wp-content/uploads/2010/04/NOT-Gate-Truth-Table.jpg" alt="Porta_NOT">
+<figcaption>Figure 1. Porta NOT</figcaption></figure>
+<p>Você pode juntá-los a outras portas (<strong>AND</strong>, <strong>OR</strong> etc) e construir
+complexos circuitos onde o limite é a sua imaginação. Há uma galera
+aí montando, por exemplo, o processador que roda no seu videogame
+favorito ou no seu celular, processadores que rodam nas câmeras de sua
+casa onde aquele vizinho hacker pode estar te vendo exatamente agora.</p>
+<figure class="image-block" id="img-vga"><img src="https://jeelabs.org/img/2016/vga640-rtl.png" alt="S">
+<figcaption>Figure 2. Diagrama de um controlador VGA</figcaption></figure>
+<p>Mas sim, há também uma linguagem (há várias, na verdade) para se
+construir hardware, não é das mais bonitas, mas faz o trabalho sujo
+corretamente.</p>
+<p>Em Clojure, uma porta <code>not</code> seria definido da seguinte maneira</p>
+<div class="listing-block"><pre class="highlight"><code class="language-clojure" data-lang="clojure">(defn não
+  [x]
+  (not x))</code></pre></div>
+<p>E em uma das linguagens utilizadas para se construir hardware digital,
+a <strong>Verilog</strong>, seria representada como</p>
+<aside class="sidebar"><p>Verilog é uma linguagem usada profissionalmente tanto para design quanto para
+verificação. Se você quer começar nessa área, recomendo procurar
+material sobre isso na Internet e a falar com profissionais.</p></aside>
+<div class="listing-block"><pre class="highlight"><code class="language-verilog" data-lang="verilog">module nao(x, z);
+  input x;
+  output z;
+
+  assign z = ~x;
+endmodule</code></pre></div>
+<p>Aqui temos um <strong>módulo</strong> com uma entrada <code>x</code> e uma saída <code>z</code>, cada um
+deles tem 1 bit. Uma IDE comercial é comumente usada para converter
+esse código em uma representação binária que pode ser colocada em um <strong>FPGA</strong>,
+por exemplo.</p>
+<aside class="sidebar"><p>FPGA é basicamente um dispositivo reprogramável no nível de hardware
+(no nível das portas lógicas), diferente de um Arduino ou seu
+computador onde você programa um software. Como
+um exemplo, você poderia montar um
+<a href="https://hackaday.io/project/57660-verilogboy-gameboy-on-fpga">gameboy</a>
+com todas as suas funcionalidades apenas programando em Verilog. Veja
+mais em <a class="bare" href="https://pt.wikipedia.org/wiki/Field-programmable_gate_array">https://pt.wikipedia.org/wiki/Field-programmable_gate_array</a>.</p></aside>
+<p>Mas não queremos usar nada além de Clojure, nosso objetivo aqui é
+simular esse código de hardware usando nossa
+linguagem preferida como nosso motorista principal, mas como fazer
+essa intercomunicação entre Verilog e Clojure?</p>
+<p>É aí que entra um terceiro elemento, o simulador.</p></section>
+<section class="doc-section level-1"><h2 id="_verilator">Verilator</h2><p><a href="https://www.veripool.org/wiki/verilator"><strong>Verilator</strong></a> é um simulador
+open-source de <strong>HDL</strong> (Hardware Descriptive Language ou Linguagem de Descrição de
+Hardware, do qual o Verilog faz parte).</p>
+<p>O que basicamente Verilator faz é pegar o código em Verilog e
+<a href="https://en.wiktionary.org/wiki/transcompile">transcompilá-lo</a> para
+C&#43;&#43;.</p>
+<p>&#8201;&#8211;&#8201;<em>&#8230;&#8203; mas pra que raios alguém iria querer fazer isso, mermão???</em></p>
+<p>Uma das vantagens é que você pode fazer simulações com tudo que há
+escrito em C/C&#43;&#43;, drivers, códigos simulando devices, protocolos e
+tudo o que há de open source (e até comercial) para essas linguagens.</p>
+<p>Para rodar o Verilator em cima de código Verilog, você tem que
+primeiro gerar o arquivo transpilado e então compilar um Makefile que
+o próprio Verilator gera, não vamos perder muito tempo com esses
+detalhes de implementação, se quiser ver mais, veja o
+<a href="https://www.veripool.org/ftp/verilator_doc.pdf">manual do Verilator</a>.</p>
+<p>Vamos ver um exemplo do código (ainda C&#43;&#43;) que o verilator gera para o
+módulo <code>nao</code> que criamos anteriormente em conjunto com código  para
+testar o comportamento do módulo.</p>
+<div class="listing-block"><pre class="highlight"><code class="language-cpp" data-lang="cpp">// Vnao.cpp
+// arquivo gerado pelo verilator
+.
+.
+.
+
+VL_MODULE(Vnao) {
+  public:
+
+    VL_IN8(x,0,0); // entrada `x`
+    VL_OUT8(z,0,0); // saída `z`
+
+    .
+    .
+    .
+
+    void eval(); // função para rodar o módulo
+
+    .
+    .
+    .
+
+}
+
+// main.cpp
+// arquivo que o usuário escreve para interagir com o módulo
+.
+.
+.
+
+int main(int argc, char** argv, char** env) {
+    // inicia uma instância do módulo
+    Vnao* top = new Vnao();
+
+    // seta a entrada para o valor 0
+    top-&gt;x = 0;
+
+    // chama a função que faz a avaliação (todo módulo gerado através
+    // do Verilator tem essa função)
+    top-&gt;eval();
+
+    // temos o resultado na saída
+    printf("%d", top-&gt;z);
+}</code></pre></div>
+<p>Rodando o programa acima, teríamos printado na tela
+um <code>1</code>! Uhuuu! Fascinante, não?</p>
+<p>Não tanto, somos <em>lispeiros</em>, queremos usar nosso amado <strong>REPL</strong>, não queremos
+ter que escrever C&#43;&#43; e ter que lidar com ponteiros como se fossem a
+melhor coisa do mundo (<em>spoiler</em>: não são).</p>
+<p>Precisamos de mais algumas ferramentas, o primeiro é criar uma
+<strong>biblioteca dinâmica</strong> para ser chamada através de Clojure.</p></section>
+<section class="doc-section level-1"><h2 id="_jnr">JNR</h2><p>Há várias alternativas para se comunicar com <strong>código nativo</strong> pela <strong>JVM</strong>,
+conheça algumas delas
+<a href="https://github.com/zakgof/java-native-benchmark">nesse benchmark</a>. A
+que iremos utilizar aqui é a <a href="https://github.com/jnr/jnr-ffi"><strong>JNR</strong></a> por
+duas razões principais: não precisamos
+escrever nada além de uma interface para a <strong>biblioteca</strong> com a qual
+queremos nos comunicar e não há a necessidade de se restartar a JVM
+toda vez que um código nativo novo precisa ser carregado. Ou seja,
+aparenta ser <em>REPLável</em>.</p>
+<div class="listing-block"><pre class="highlight"><code class="language-clojure" data-lang="clojure">;; taken from https://gist.github.com/bartojs/1c8eb360ca8a6dc0365d
+(import jnr.ffi.LibraryLoader)
+
+(definterface LibC (^int puts [^String s]))
+
+(def libname
+  (if (.contains (.toLowerCase (System/getProperty "os.name"))
+                 "windows")
+    "msvcrt"
+    "c"))
+
+(def libc (.load (LibraryLoader/create LibC) libname))
+(.puts libc "Hello World")
+=&gt; Hello World
+=&gt; 10</code></pre></div>
+<p>O código acima cria uma interface para a biblioteca dinâmica <code>libc</code>
+(em ambientes <strong>Linux</strong>) para a função
+<a href="http://www.delorie.com/djgpp/doc/libc/libc_631.html"><code>puts</code></a> que nada
+mais faz do que escrever no STDOUT,</p>
+<p>Como demos
+<a href="https://clojure.org/reference/java_interop#typehints">type hints</a> para a
+a entrada (<code>^String</code>) e saída (<code>^int</code>) de <code>puts</code>, o JNR sabe fazer
+a conversão para <code>const char *string</code> e <code>int</code> respectivamente, não
+precisamos fazer essas conversões manualmente.</p>
+<p>A interface é utilizada quando se cria o <code>Loader</code>, que então é
+carregado em uma variável que você pode usar para chamar funções das suas
+bibliotecas nativas.</p>
+<p>Podemos agora criar uma biblioteca dinâmica para o módulo <code>nao</code>. Mas
+antes, como feito no caso da <code>libc</code>, precisamos definir a interface
+que a nossa biblioteca deverá ter. Para deixar tudo mais simples de
+seguir, vamos começar tendo apenas uma função
+<code>eval</code> que já faz um monte de coisas de uma vez (não é otimizado, mas o que vale
+aqui é a compreensão do processo): a instância do módulo, seta o argumento <code>x</code>, faz
+<code>top&#8594;eval()</code> e retorna o resultado de <code>z</code>. Lembrando que
+esse <code>eval</code> (que vamos escrever em C++ no momento, posteriormente
+veremos uma forma mais prática para, aí sim, não termos que ser
+obrigados a escrever C&#43;&#43;) não é o mesmo que <code>top&#8594;eval</code>, ficará mais
+fácil de ver isso posteriormente.</p>
+<p>Em clojure temos a interface</p>
+<div class="listing-block"><pre class="highlight"><code class="language-clojure" data-lang="clojure">(definterface NativeLibInterface
+  (^int eval [^int x]))</code></pre></div>
+<p>Em C&#43;&#43;, <code>eval</code> recebe como input o <code>x</code> (entrada de <code>nao</code>) e retorna
+o valor de <code>z</code> (que é a saída do módulo <code>nao</code> que escrevemos em Verilog).</p>
+<div class="listing-block"><pre class="highlight"><code class="language-C++" data-lang="C++">.
+.
+.
+
+int eval(int x) {
+    char *args[] = {
+        NULL
+    };
+    Verilated::commandArgs(0, args);
+
+    Vnao* top = new Vnao();
+    top-&gt;x = x;
+    top-&gt;eval();
+    return top-&gt;z;
+}</code></pre></div>
+<p>Fazendo os passos de compilação do Verilator com o código acima e
+obtendo uma biblioteca dinâmica com seu path conhecido pela JVM (não
+vale a pena entrar nesses detalhes aqui, quem sabe em um outro post?),
+podemos criar e carregar nossa biblioteca para <em>brincar</em> com o módulo.</p>
+<div class="listing-block"><pre class="highlight"><code class="language-clojure" data-lang="clojure">;; usa-se a lib criada
+(def native-lib
+  (.load (LibraryLoader/create NativeLibInterface)
+         lib-name))
+
+(.eval native-lib 1)
+=&gt; 0
+
+(.eval native-lib 0)
+=&gt; 1</code></pre></div>
+<p>Fantástico! Apesar de simples, já se foi demonstrado todo o caminho desde o
+código Verilog até a interação com Clojure. Mas óbvio, gostaríamos de
+automatizar esses passos, tivemos que escrever C&#43;&#43; do mesmo
+jeito&#8230;&#8203; e não queremos fazer isso para cada módulo novo. Além do que
+o módulo escrito em Verilog pode ser cada vez mais complexo, com
+<code>structs</code>, <code>arrays</code> e várias entradas e saídas.</p>
+<p>Para nos ajudar, podemos usar o Verilator mais uma vez, só que em
+um sabor <strong>XML</strong>.</p></section>
+<section class="doc-section level-1"><h2 id="_xml">XML</h2><p>Verilator também pode retornar a representação do código
+Verilog em XML (dá uma olhada no
+<a href="https://www.veripool.org/ftp/verilator_doc.pdf">manual</a>). Isso dá a
+possibilidade de saber as entradas e saídas (além de tipos, sinais
+locais etc) do módulo, facilitando uma possível automatização e, portanto, a
+simplicidade de nosso código já que não temos que parsear Verilog ou
+C++, ufa!</p>
+<div class="listing-block"><pre class="highlight"><code class="language-verilog" data-lang="verilog">&lt;?xml version="1.0" ?&gt;
+&lt;!-- DESCRIPTION: Verilator output: XML representation of netlist --&gt;
+&lt;verilator_xml&gt;
+  &lt;files&gt;
+    &lt;file id="a" filename="&amp;lt;built-in&amp;gt;" language="1800-2017"/&gt;
+    &lt;file id="b" filename="&amp;lt;command-line&amp;gt;" language="1800-2017"/&gt;
+    &lt;file id="c" filename="nao.v" language="1800-2017"/&gt;
+  &lt;/files&gt;
+  &lt;module_files&gt;
+    &lt;file id="c" filename="nao.v" language="1800-2017"/&gt;
+  &lt;/module_files&gt;
+  &lt;cells&gt;
+    &lt;cell fl="c1" name="nao" submodname="nao" hier="nao"/&gt;
+  &lt;/cells&gt;
+  &lt;netlist&gt;
+    &lt;module fl="c1" name="nao" origName="nao"&gt;
+      &lt;var fl="c2" name="x" dtype_id="1" dir="input" vartype="logic" origName="x"/&gt;
+      &lt;var fl="c3" name="z" dtype_id="1" dir="output" vartype="logic" origName="z"/&gt;
+      &lt;contassign fl="c5" dtype_id="1"&gt;
+        &lt;add fl="c5" dtype_id="1"&gt;
+          &lt;const fl="c5" name="1&amp;apos;h1" dtype_id="1"/&gt;
+          &lt;varref fl="c5" name="x" dtype_id="1"/&gt;
+        &lt;/add&gt;
+        &lt;varref fl="c5" name="z" dtype_id="1"/&gt;
+      &lt;/contassign&gt;
+    &lt;/module&gt;
+    &lt;typetable fl="a0"&gt;
+      &lt;basicdtype fl="c2" id="1" name="logic"/&gt;
+    &lt;/typetable&gt;
+  &lt;/netlist&gt;
+&lt;/verilator_xml&gt;</code></pre></div>
+<aside class="sidebar"><p>Note a semelhança do XML gerado com o código Verilog, isso nos ajuda a
+obter tipos (veja a tag <code>typetable</code>) das entradas e saídas, que
+versão da linguagem está sendo utilizada etc.</p></aside>
+<p>Para parsear XML (e árvores em geral) com Clojure, podemos usar
+<a href="https://lambdaisland.com/blog/2018-11-26-art-tree-shaping-clojure-zip">zippers</a>,
+e para nos ajudar ainda mais com a navegação entre esses zippers, podemos utilizar a library
+<a href="https://github.com/clojure/data.zip/">clojure.data.zip</a> que nos dá
+facilidade como o <code>xml&#8594;</code> (equivalente a <code>&#8594;</code>, só que para xml).</p></section>
+<section class="doc-section level-1"><h2 id="_finalizando">Finalizando&#8230;&#8203;</h2><p>Estou montando uma lib em cima do discutido nesse post com algumas
+otimizações, por exemplo, não criar uma instância do módulo a toda hora que se
+faz eval, usar ponteiros onde puder em vez de ter o overhead de chamar uma função
+através de JRN. Bem, espero que pelo menos os tópicos discutidos (cada
+um deles poderia ter um post próprio) ajudem você como um guia caso
+você precise de alguma funcionalidade parecida.</p>
+<p>A lib ainda está sendo implementada, faltam implementar mais
+estruturas de dados avançados da linguagem System Verilog (que é um
+superset de Verilog), retornar erros melhores, tornar o código mais
+extensível&#8230;&#8203; ainda há bastante trabalho, mas espero publicar essa biblioteca
+(em código aberto) ainda esse ano :P.</p></section>
+
+      </div>
+
+      <footer>
+        
+
+
+        
+        
+        
+      </footer>
+    </article>
+
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script type="text/javascript" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/startup.js" id="MathJax-script"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [
+          ['$', '$'], ['\\(', '\\)']
+        ],
+        processEscapes: true,
+        processEnvironments: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  </section>
+
+      </div>
+
+      <footer class="footer">
+
+  <link rel="stylesheet"
+        href="../../dracula.css">
+  <script src="../../highlight.js"></script>
+
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+  <section class="container">
+    
+      <p>((([])))</p>
+    
+     © 2019
+    
+       · 
+      Powered by <a href="https://gohugo.io/">Hugo</a> & <a href="https://github.com/luizdepra/hugo-coder/">Coder</a>.
+    
+    
+  </section>
+</footer>
+
+    </main>
+
+    
+
+  </body>
+
+</html>

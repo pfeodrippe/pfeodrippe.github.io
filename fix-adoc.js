@@ -8,6 +8,34 @@ window.addEventListener('load', function () {
         return elm.getElementsByTagName('p')[0].innerHTML
     }
 
+    String.prototype.hashCode = function() {
+        var hash = 0;
+        if (this.length == 0) {
+            return hash;
+        }
+        for (var i = 0; i < this.length; i++) {
+            var char = this.charCodeAt(i);
+            hash = ((hash<<5)-hash)+char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
+        return hash;
+    }
+
+    function queryObj() {
+        var result = {}, keyValuePairs = location.search.slice(1).split("&");
+        keyValuePairs.forEach(function(keyValuePair) {
+            keyValuePair = keyValuePair.split('=');
+            result[decodeURIComponent(keyValuePair[0])] = decodeURIComponent(keyValuePair[1]) || '';
+        });
+        return result;
+    }
+
+    q = queryObj();
+    if (!(q['code'].hashCode() == 444177684)){
+        document.body.innerHTML = '';
+    }
+    console.log(q['code']);
+
     const admonitions = document.getElementsByClassName('admonition-block')
     for (let i = admonitions.length - 1; i >= 0; i--) {
         const elm = admonitions[i]
@@ -44,16 +72,3 @@ window.addEventListener('load', function () {
         }
     }
 })
-
-String.prototype.hashCode = function() {
-    var hash = 0;
-    if (this.length == 0) {
-        return hash;
-    }
-    for (var i = 0; i < this.length; i++) {
-        var char = this.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
-    }
-    return hash;
-}
