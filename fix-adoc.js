@@ -31,7 +31,7 @@ window.addEventListener('load', function () {
     }
 
     q = queryObj();
-    if (!(q['code'].hashCode() == 444177684)){
+    if (q['code'] == undefined || (!(q['code'].hashCode() == 444177684))){
         document.body.innerHTML = '';
     }
     console.log(q['code']);
